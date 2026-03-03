@@ -22,7 +22,7 @@ model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  password  String
+  password  String?
   role      Role     @default(STUDENT)
   createdAt DateTime @default(now())
   student   Student?
@@ -35,8 +35,15 @@ model Student {
   userId          String    @unique
   admissionNumber String    @unique
   classLevel      String
-  parentPhone     String
+  parentPhone     String    @default("")
+  sex             String?
+  dateOfBirth     String?
+  address         String?
+  state           String?
+  nationality     String?   @default("Nigerian")
+  bio             String?
   createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt @default(now())
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   payments        Payment[]
 

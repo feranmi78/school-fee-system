@@ -6,7 +6,7 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -14,10 +14,8 @@ export async function GET(
   }
 
   try {
-    const { id } = await params;
-
     const payment = await prisma.payment.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         student: { include: { user: true } },
         feeStructure: true,

@@ -1,77 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --brand: 14 165 233;
-    --success: 16 185 129;
-    --warning: 245 158 11;
-    --danger: 239 68 68;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
-    @apply font-sans;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: #fffbf5;
+    color: #1e293b;
   }
 
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-400 dark:bg-slate-600;
-  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
 }
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm;
+    @apply bg-white rounded-2xl border border-amber-100 shadow-sm;
   }
 
   .btn-primary {
-    @apply bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98];
+    @apply py-3 px-6 rounded-xl font-semibold text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] shadow-lg;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #d97706, #ea580c);
   }
 
   .btn-secondary {
-    @apply bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold py-2.5 px-5 rounded-xl transition-all duration-200 active:scale-[0.98];
+    @apply bg-amber-50 hover:bg-amber-100 text-amber-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200 border border-amber-200 active:scale-[0.98];
   }
 
   .btn-danger {
-    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-200 active:scale-[0.98];
+    @apply bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-200 active:scale-[0.98];
   }
 
   .input-field {
-    @apply w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 placeholder:text-slate-400;
+    @apply w-full border rounded-xl px-4 py-3 text-sm transition-all duration-200 text-slate-800;
+    background: #fffbf5;
+    border-color: #fde68a;
+    outline: none;
+  }
+
+  .input-field:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
+
+  .input-field::placeholder {
+    color: #fcd34d;
   }
 
   .badge-paid {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700;
   }
 
   .badge-pending {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700;
   }
 
   .badge-failed {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700;
   }
 
   .table-row {
-    @apply hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150;
+    @apply hover:bg-amber-50 transition-colors duration-150;
   }
 
   .stat-card {
@@ -79,32 +79,15 @@
   }
 }
 
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-  }
-}
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
+
+.animate-fade-in { animation: fadeIn 0.4s ease-in-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }

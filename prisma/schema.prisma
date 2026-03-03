@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  student   Student?
+
+  @@map("users")
+}
+
+model Student {
+  id              String    @id @default(uuid())
+  userId          String    @unique
+  admissionNumber String    @unique
+  classLevel      String
+  parentPhone     String
+  createdAt       DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments        Payment[]
+
+  @@map("students")
+}
+
+model FeeStructure {
+  id        String    @id @default(uuid())
+  term      String
+  session   String
+  amount    Float
+  createdAt DateTime  @default(now())
+  payments  Payment[]
+
+  @@unique([term, session])
+  @@map("fee_structures")
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  studentId      String
+  feeStructureId String
+  amount         Float
+  reference      String        @unique
+  status         PaymentStatus @default(PENDING)
+  paidAt         DateTime?
+  createdAt      DateTime      @default(now())
+  student        Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feeStructure   FeeStructure  @relation(fields: [feeStructureId], references: [id])
+
+  @@map("payments")
+}
